@@ -7,7 +7,7 @@ description: GdUnit4로 GDScript 단위/씬 테스트를 작성·실행하거나
 
 이 스킬은 본 아이소메트릭 2D 템플릿에서 **GdUnit4**로 GDScript 로직(좌표 변환, 상태 기계, 게임 규칙 등)을
 검증할 때 따라야 할 절차와 패턴을 정리한다. 전투·인벤토리 등 로직을 검증할 때는
-`superpowers:test-driven-development`와 함께 이 스킬을 사용한다(스펙 7절 라우팅 규칙).
+`superpowers:test-driven-development`와 함께 이 스킬을 사용한다(`AGENTS.md`의 스킬 라우팅 규칙).
 
 ## 전제: GdUnit4 설치가 필요하다
 

@@ -40,7 +40,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 ## 3단계 — 씬(.tscn) 생성
 
-Godot 4 텍스트 씬 포맷 `format=3`. `ext_resource`는 `type`+`path`+`id`로 참조한다(손으로 작성할 땐 `uid` 생략 가능 — path로 로드됨). `load_steps`는 `ext_resource 수 + 1`로 맞춰 둔다(Godot 4.6+ 에디터는 `load_steps`를 기록하지 않지만 남아 있어도 무해).
+Godot 4 텍스트 씬 포맷 `format=3`. `ext_resource`는 `type`+`path`+`id`로 참조한다(손으로 작성할 땐 `uid` 생략 가능 — path로 로드됨). `load_steps`는 `ext_resource 수 + sub_resource 수 + 1`로 맞춰 둔다(Godot 4.6+ 에디터는 `load_steps`를 기록하지 않지만 남아 있어도 무해).
 
 - **월드 씬 노드 트리(Y-sort 구성 필수)** — `scenes/main.tscn`과 같은 골격을 따른다:
 

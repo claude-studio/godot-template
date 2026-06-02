@@ -140,7 +140,7 @@ test/unit/          # GdUnit4 테스트(iso_utils_test.gd)
 
 아래 절차는 Claude Code에선 슬래시 커맨드로 제공되고, Codex 등 다른 에이전트는 같은 단계를 직접 수행한다.
 
-- **실행(run)** — godot MCP가 있으면 그것으로 프로젝트/씬을 실행하고 디버그 출력을 캡처한다. 없으면 `godot --path .` (특정 씬은 `godot --path . res://scenes/main.tscn`). `SCRIPT ERROR`/`Parse error`/`ext_resource not found`를 확인한다. *(Claude: `/godot-run`)*
+- **실행(run)** — godot MCP가 있으면 그것으로 프로젝트/씬을 실행하고 디버그 출력을 캡처한다. 없으면 `godot --path .` (특정 씬은 상대경로 positional `godot --path . scenes/main.tscn` — `res://`/UID용 `--scene` 플래그는 Godot 4.5+ 전용이라 4.4 타깃에선 미사용). `SCRIPT ERROR`/`Parse error`/`ext_resource not found`를 확인한다. *(Claude: `/godot-run`)*
 - **테스트(test)** — `addons/gdUnit4` 설치 전제. GdUnit4 CLI 러너로 `test/`를 실행하고 실패 시 체계적 디버깅으로 좁힌다. *(Claude: `/godot-test`)*
 - **새 아이소 씬** — `World`(`y_sort_enabled=true`) · `GroundLayer`(비 Y-sort, `z_index=-1`) · `ObjectLayer`(`y_sort_enabled=true`, `z_index=0`) · `Camera2D` 구조로 스캐폴딩하고, 엔티티는 World 아래에 둔다(z_index 기본 0을 유지해 ObjectLayer와 같은 정렬 그룹에 포함 — Godot은 같은 z_index끼리만 Y-sort). *(Claude: `/new-iso-scene`)*
 - **아이소 디버깅(iso-debug)** — Y-sort 어긋남/클릭 좌표 불일치 등은 ① 좌표 변환이 `local_to_map(to_local(...))`인지 ② Y-sort 부모/`z_index` 분리 ③ `y_sort_origin` 순으로 점검하고, API는 context7로 확인한다. *(Claude: `/iso-debug`)*
