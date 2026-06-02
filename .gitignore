@@ -1,0 +1,30 @@
+# Godot 4 (4.1+) 프로젝트 무시 목록 — 공식 권장 기준
+# 참고: docs.godotengine.org/.../best_practices/version_control_systems
+
+# 에디터가 처음 열 때 생성하는 캐시/임포트 메타데이터(재생성됨).
+# 비밀정보(export_credentials.cfg)도 이 안에 저장되어 함께 보호된다.
+.godot/
+
+# CSV에서 생성되는 바이너리 번역 파일
+*.translation
+
+# 참고: export_presets.cfg 는 무시하지 않는다 — Godot 4.1+에서는 비밀정보가
+# .godot/export_credentials.cfg(위에서 무시됨)로 분리되어 안전하게 커밋 가능하다.
+
+# (선택) C#/.NET(Mono)을 추가하는 경우에만 주석 해제
+# .mono/
+# data_*/
+# mono_crash.*.json
+
+# Claude Code 워크트리(리포 내부 생성 시)
+.claude/worktrees/
+
+# Godot MCP 서버를 프로젝트 내부에 둘 경우
+/tools/
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.idea/

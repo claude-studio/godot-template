@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "godot": {
+      "command": "node",
+      "args": ["${GODOT_MCP_PATH:-/path/to/godot-mcp}/build/index.js"],
+      "env": {
+        "GODOT_PATH": "${GODOT_PATH:-}",
+        "DEBUG": "false"
+      }
+    }
+  }
+}

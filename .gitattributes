@@ -1,0 +1,25 @@
+# 줄바꿈 정규화: 텍스트는 LF로 통일
+* text=auto eol=lf
+
+# Godot 텍스트 리소스
+*.gd      text
+*.tscn    text
+*.tres    text
+*.godot   text
+*.import  text
+*.cfg     text
+*.json    text
+*.md      text
+*.svg     text
+
+# 바이너리 에셋 (diff/머지 시도 금지)
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.gif   binary
+*.ogg   binary
+*.wav   binary
+*.mp3   binary
+*.ttf   binary
+*.otf   binary

@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="18" fill="#1f2630"/>
+  <!-- 아이소메트릭 타일 스택 모티프 -->
+  <polygon points="64,26 106,50 64,74 22,50" fill="#52a0ff"/>
+  <polygon points="22,50 64,74 64,102 22,78" fill="#2f6fd0"/>
+  <polygon points="106,50 64,74 64,102 106,78" fill="#3f86e6"/>
+  <polygon points="64,26 106,50 64,74 22,50" fill="none" stroke="#cfe6ff" stroke-width="2" stroke-opacity="0.35"/>
+</svg>

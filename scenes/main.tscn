@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://src/entities/player/player.tscn" id="2_player"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="GroundLayer" type="TileMapLayer" parent="World"]
+z_index = -1
+
+[node name="ObjectLayer" type="TileMapLayer" parent="World"]
+y_sort_enabled = true
+z_index = 0
+
+[node name="Player" parent="World" instance=ExtResource("2_player")]
+position = Vector2(32, 16)
+
+[node name="Camera2D" type="Camera2D" parent="World/Player"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 408.0
+offset_bottom = 31.0
+text = "WASD/화살표: 이동  ·  좌클릭: 타일 좌표 출력"
