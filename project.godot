@@ -1,5 +1,5 @@
 ; Engine configuration file.
-; Godot 아이소메트릭 2D 템플릿 (Claude Code 연동)
+; Godot 아이소메트릭 2D 템플릿 (여러 AI 코딩 에이전트 연동)
 ; 타깃: Godot 4.4+  /  언어: GDScript  /  렌더러: GL Compatibility
 ;
 ; 자세한 옵션은 https://docs.godotengine.org 참고.
@@ -9,7 +9,7 @@ config_version=5
 [application]
 
 config/name="Godot Isometric Template"
-config/description="Claude Code 연동 아이소메트릭 2D 게임 템플릿 (context7 MCP · Godot MCP · superpowers · GdUnit4)"
+config/description="여러 AI 코딩 에이전트 연동 아이소메트릭 2D 게임 템플릿 (context7 MCP · Godot MCP · superpowers · GdUnit4)"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
