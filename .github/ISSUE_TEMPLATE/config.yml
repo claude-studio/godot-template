@@ -1,0 +1,14 @@
+# 이슈 생성 라우팅 설정
+# 이 레포의 이슈는 대부분 AI(Claude Code·Codex 등)가 작성합니다.
+# 빈 이슈를 막아 항상 아래 템플릿 중 하나를 고르게 합니다.
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 작업 지침(AGENTS.md) 먼저 확인
+    url: https://github.com/claude-studio/godot-template/blob/main/AGENTS.md
+    about: 이슈를 올리기 전에 정본 작업 지침과 도구 라우팅 표를 확인하세요. (도구 무관 공용)
+  - name: 🧭 공용 지식 문서(docs/)
+    url: https://github.com/claude-studio/godot-template/tree/main/docs
+    about: SETUP·ARCHITECTURE·GODOT_CONVENTIONS·COMMIT_CONVENTIONS — 설정/규약 질문은 여기부터.
+  - name: 💬 단순 질문 / 사용법 문의
+    url: https://github.com/claude-studio/godot-template/discussions
+    about: 버그·설정 변경·기능 제안이 아닌 일반 질문은 Discussions를 이용하세요. (없으면 무시)
