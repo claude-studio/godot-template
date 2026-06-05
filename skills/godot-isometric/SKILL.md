@@ -161,7 +161,7 @@ Main (Node2D)
   아이소 스크린 픽셀 → 직교.
 - `IsoUtils.map_to_screen(cell: Vector2i, tile_size: Vector2) -> Vector2`
   셀 좌표 → 스크린 픽셀(타일 중심).
-- `IsoUtils.screen_to_map(screen: Vector2, tile_size: Vector2) -> Vector2i`
+- `IsoUtils.screen_to_map(screen: Vector2, tile_size: Vector2) -> Vector2i` — `iso_to_cart()` 결과를 `roundi()`로 반올림하는 가장 가까운 셀 중심 정책. 셀 영역 포함 판정이 아니다.
   스크린 픽셀 → 셀 좌표(반올림).
 - `IsoUtils.depth(cell: Vector2i) -> int`
   Y-sort 보조용 깊이값(`cell.x + cell.y`). 값이 클수록 앞(아래) 칸.
@@ -182,7 +182,9 @@ if IsoUtils.depth(cell_a) > IsoUtils.depth(cell_b):
 
 > 중요: **런타임에 실제 씬의 셀을 변환할 때는 `TileMapLayer.local_to_map`/
 > `map_to_local`을 우선 사용하라.** `IsoUtils`는 TileMapLayer가 없는 순수
-> 좌표 계산, 테스트, 또는 입력 벡터를 아이소 축에 맞추는 보정용이다.
+> 계산·테스트·UI 보조용이다.
+> 특히 `screen_to_map()`은 가장 가까운 셀 중심으로 반올림하므로 경계/음수/반 셀 위치에서
+> 실제 TileMapLayer의 `local_to_map()`과 다를 수 있다.
 
 ---
 

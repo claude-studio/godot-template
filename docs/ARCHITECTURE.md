@@ -266,7 +266,7 @@ func add_score(n: int) -> void:
 | `cart_to_iso(cart, tile_size) -> Vector2` | 직교(논리 그리드) → 아이소 스크린 픽셀 |
 | `iso_to_cart(iso, tile_size) -> Vector2` | 아이소 스크린 픽셀 → 직교 |
 | `map_to_screen(cell, tile_size) -> Vector2` | 셀 좌표 → 스크린 픽셀(타일 중심) |
-| `screen_to_map(screen, tile_size) -> Vector2i` | 스크린 픽셀 → 셀 좌표(반올림) |
+| `screen_to_map(screen, tile_size) -> Vector2i` | 스크린 픽셀 → 가장 가까운 셀 중심 좌표(반올림) |
 | `depth(cell) -> int` | Y-sort 보조 깊이값(`cell.x + cell.y`) |
 
 표준 2:1 아이소 변환식:
@@ -298,7 +298,11 @@ func _unhandled_input(event: InputEvent) -> void:
 - **TileMapLayer 메서드** = "실제 타일셋이 적용된 런타임 셀 변환". 게임 플레이 좌표는 이쪽 우선.
 
 > `IsoUtils` 주석에도 "런타임 셀 변환은 `TileMapLayer.local_to_map` / `map_to_local`을 우선 사용하라"고
-> 명시되어 있다.
+> 적혀 있다. 이 원칙을 어기면 타일셋 설정(아이소 모양·오프셋·정렬축)이 반영되지 않아 클릭 좌표가 틀어질 수 있다.
+
+`IsoUtils.screen_to_map()`은 셀 영역 포함 판정이 아니라 `iso_to_cart()` 결과를 `roundi()`로 반올림하는
+**가장 가까운 셀 중심** 정책이다. 경계 근처·음수 좌표·반 셀 위치에서는 실제 TileMapLayer의
+`local_to_map()` 감각과 다를 수 있으므로, 런타임 클릭 판정에는 TileMapLayer 메서드를 사용한다.
 
 ---
 
