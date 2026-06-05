@@ -22,6 +22,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		# 전역 마우스 좌표를 ObjectLayer의 로컬 좌표로 변환한 뒤 셀 좌표로 매핑한다.
 		# (TileSet을 아이소로 설정해 연결하면 아이소 셀 좌표가 반환된다. TileSet 미할당 상태에서는 셀 좌표가 보장되지 않으니, 데모 동작 확인 전 TileSet을 할당하라.)
+		if object_layer.tile_set == null:
+			return  # TileSet 미할당 시 좌표 변환을 건너뛴다.
+
 		var local_pos: Vector2 = object_layer.to_local(get_global_mouse_position())
 		var cell: Vector2i = object_layer.local_to_map(local_pos)
 		print("클릭한 타일 셀: ", cell)
