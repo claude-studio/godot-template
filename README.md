@@ -22,7 +22,7 @@
 ## 빠른 시작
 
 1. 이 템플릿으로 새 리포를 생성하거나 클론한다.
-2. Godot 4.4 이상에서 `project.godot`를 연다(최초 1회 열 때 `icon.svg` 등 리소스가 자동 임포트되고 `.godot/` 캐시가 생성된다). 생성된 `*.import` 파일은 커밋하고(공식 권장), `.godot/`는 커밋하지 않는다(`.gitignore`가 이미 처리).
+2. Godot 4.4 이상에서 `project.godot`를 연다. 최초 1회 열 때 `.godot/` 캐시가 생성되지만, 기본 메인 씬은 외부 텍스처 임포트 없이도 headless smoke 실행이 가능하다. `.godot/`는 커밋하지 않는다(`.gitignore`가 이미 처리).
 3. `docs/SETUP.md`를 따라 MCP(context7·Godot MCP)·플러그인·GdUnit4 addon을 설치한다.
 4. 에디터에서 `F5`로 실행한다.
 
