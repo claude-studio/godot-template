@@ -38,8 +38,8 @@ static func map_to_screen(cell: Vector2i, tile_size: Vector2) -> Vector2:
 	return cart_to_iso(Vector2(cell), tile_size)
 
 
-## 스크린 픽셀을 셀(정수) 좌표로 변환한다(반올림).
-## 런타임에는 TileMapLayer.local_to_map()을 우선 사용하라.
+## 스크린 픽셀을 가장 가까운 셀 중심 좌표로 변환한다(반올림).
+## 셀 영역 포함 판정이 아니므로, 런타임에는 TileMapLayer.local_to_map()을 우선 사용하라.
 static func screen_to_map(screen: Vector2, tile_size: Vector2) -> Vector2i:
 	var cart: Vector2 = iso_to_cart(screen, tile_size)
 	return Vector2i(roundi(cart.x), roundi(cart.y))
