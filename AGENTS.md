@@ -110,7 +110,7 @@ test/unit/          # GdUnit4 테스트(iso_utils_test.gd)
 
 ### Autoload (싱글톤)
 - **EventBus** (`src/autoload/event_bus.gd`): 전역 시그널 허브. 노드 간 직접 참조 대신 시그널로 느슨하게 결합한다. 예: `EventBus.player_spawned.emit(self)`. `class_name`을 두지 않는다(autoload 이름 `EventBus`로 전역 접근).
-- **GameState** (`src/autoload/game_state.gd`): 점수·일시정지 등 전역 상태. 상태 변경은 GameState 메서드를 통해서만 하고, 부수효과(예: 일시정지)는 EventBus 시그널로 알린다.
+- **GameState** (`src/autoload/game_state.gd`): 점수·일시정지 등 전역 상태. 상태 변경은 GameState 메서드를 통해서만 하고, 부수효과(예: 일시정지)는 EventBus 시그널로 알린다. `set_paused()`는 `SceneTree.paused`를 직접 토글하므로, 일시정지 중에도 입력·UI 갱신·구독 처리가 필요한 노드는 필요한 경우 `process_mode = PROCESS_MODE_ALWAYS`를 설정한다. pause 토글 입력이나 UI 예제를 추가할 때는 `project.godot` 입력맵, 씬, 문서를 함께 동기화한다.
 - 새 전역 시그널은 **EventBus 에만** 추가한다. 임의의 노드에 전역 상태를 두지 않는다.
 
 ### 정적 타이핑

@@ -221,6 +221,16 @@ func add_score(n: int) -> void:
 	score += n
 ```
 
+#### 일시정지 처리 정책
+
+`GameState.set_paused()`는 단순 상태 플래그만 바꾸지 않고 `get_tree().paused`까지 토글한다. Godot에서는 SceneTree가 paused 상태가 되면 기본 process mode의 노드들이 `_process()`/`_physics_process()`를 멈춘다. 따라서 일시정지 중에도 계속 반응해야 하는 노드는 역할에 맞게 process mode를 명시해야 한다.
+
+- pause 오버레이, 메뉴, 입력 구독자처럼 정지 중에도 동작해야 하는 UI/컨트롤러: `process_mode = PROCESS_MODE_ALWAYS`
+- 월드/플레이어/전투처럼 정지 중 멈춰야 하는 게임플레이 노드: 기본 process mode 유지
+- 상태 변경 알림은 계속 `EventBus.game_paused`를 사용하고, 구독 노드는 `EventBus.game_paused.connect(...)`로 느슨하게 연결
+
+현재 템플릿은 pause 전용 입력 액션이나 UI 예제를 만들지 않는다. 후속으로 pause 토글 예제를 추가할 때는 `project.godot` 입력맵, 씬 노드, 문서/README 안내를 함께 갱신해 실제 조작과 설명이 어긋나지 않게 한다.
+
 ### 데이터 흐름 다이어그램
 
 ```
