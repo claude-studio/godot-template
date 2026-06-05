@@ -53,8 +53,8 @@
 <!-- "검증 없이 완료라고 하지 않는다" — CLAUDE.md 원칙. 실제로 돌려보고 체크하세요. -->
 
 - [ ] Godot **4.4+** 에디터에서 프로젝트가 열리고 **parse / import 에러 없음**
-- [ ] `/godot-run` (또는 에디터 F5)로 실행 — 콘솔에 `SCRIPT ERROR` / `Parse error` / `ext_resource ... not found` 없음
-- [ ] `/godot-test` (GdUnit4) 통과 <!-- addons/gdUnit4 설치 시. 해당 없으면 체크 해제 -->
+- [ ] Smoke: `godot --headless --path . --quit-after 10` 또는 `/godot-run` 실행 — 콘솔에 `SCRIPT ERROR` / `Parse error` / `ext_resource ... not found` 없음
+- [ ] Unit: `/godot-test` (GdUnit4) 통과 <!-- addons/gdUnit4 설치 시 필수. 미설치면 체크하지 말고 아래 검증 증거에 "GdUnit4 미설치로 미실행"과 확인 명령을 적는다. -->
 - [ ] 새/변경된 로직에 대한 **테스트를 추가**했다 (또는 사유 기재)
 - [ ] (씬·스크립트 변경 시) 영향받는 다른 씬도 실행해 회귀 없음을 확인
 

@@ -260,6 +260,22 @@ source ~/.zshrc
 본 템플릿의 단위 테스트(`test/unit/iso_utils_test.gd`)와 `/godot-test` 명령은 **GdUnit4** 애드온을 사용한다.
 GdUnit4가 없으면 테스트 스위트(`extends GdUnitTestSuite`)를 해석할 수 없으므로 테스트 시 설치가 필요하다.
 
+### 검증 경로 구분
+
+클린 클론에는 `addons/gdUnit4`가 포함되어 있지 않다. 따라서 검증은 아래처럼 나눠 기록한다.
+
+- **Smoke 검증**: Godot 본체만 있으면 실행 가능하다. 코드·씬 변경 후 parse/import/runtime 시작 오류가 없는지 확인한다.
+
+  ```bash
+  godot --headless --path . --quit-after 10
+  ```
+
+- **Unit test 검증**: `addons/gdUnit4` 설치 후에만 실행한다. 애드온이 없으면 `/godot-test` 실패를 코드 실패로 보지 말고, `addons/gdUnit4` 부재로 미실행했다고 PR 검증 증거에 적는다.
+
+  ```bash
+  test -d addons/gdUnit4 && echo "GdUnit4 installed" || echo "GdUnit4 not installed"
+  ```
+
 설치 방법은 두 가지다. 둘 중 하나만 하면 된다.
 
 ### 방법 A — Godot AssetLib (권장, 가장 간단)
