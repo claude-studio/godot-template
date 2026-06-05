@@ -135,7 +135,7 @@ test/unit/          # GdUnit4 테스트(iso_utils_test.gd)
 
 - **Godot API는 추측하지 않는다.** 시그니처·속성·동작이 조금이라도 불확실하면 context7로 `/godotengine/godot-docs`를 질의해 확인한 뒤 코드를 쓴다.
 - **에디터 조작은 godot MCP로** 직접 한다(씬 열기·노드 추가·프로젝트 실행·디버그 출력 캡처). 수동 클릭을 시키기 전에 MCP 가능 여부를 먼저 본다. godot MCP는 **경로 설정이 끝나야** 동작한다 — Claude Code는 `.mcp.json`의 `${GODOT_MCP_PATH}`/`${GODOT_PATH}` 환경변수로, Codex는 `.codex/config.toml`의 `args` 절대경로와 `[mcp_servers.godot.env]`의 `GODOT_PATH`를 직접 수정한다(TOML은 환경변수를 자동 확장하지 않으므로 `GODOT_MCP_PATH`를 쓰지 않고 경로를 직접 적는다). 미설정 시 context7만 동작한다.
-- **테스트는 GdUnit4로** 작성·실행한다(`addons/gdUnit4` 설치 필요). 로직 추가 시 TDD 루프를 따른다.
+- **테스트는 GdUnit4로** 작성·실행한다(`addons/gdUnit4` 설치 필요). 로직 추가 시 TDD 루프를 따른다. 단, 클린 클론에는 GdUnit4 애드온이 포함되어 있지 않으므로 `addons/gdUnit4`가 없으면 `/godot-test` 실패를 코드 실패로 단정하지 말고 “GdUnit4 미설치로 unit test 미실행”이라고 기록한다.
 - 외부 의존성(`npm`, `git clone`, 플러그인 설치)은 **사용자가 직접 실행**한다. 설치 절차는 `docs/SETUP.md`를 참조·안내한다. 코드가 깨지면 임의 우회 대신 설치 누락부터 의심한다.
 
 ## 워크플로 절차 (도구 무관)
@@ -143,7 +143,7 @@ test/unit/          # GdUnit4 테스트(iso_utils_test.gd)
 아래 절차는 Claude Code에선 슬래시 커맨드로 제공되고, Codex 등 다른 에이전트는 같은 단계를 직접 수행한다.
 
 - **실행(run)** — godot MCP가 있으면 그것으로 프로젝트/씬을 실행하고 디버그 출력을 캡처한다. 없으면 `godot --path .` (특정 씬은 상대경로 positional `godot --path . scenes/main.tscn` — `res://`/UID용 `--scene` 플래그는 Godot 4.5+ 전용이라 4.4 타깃에선 미사용). `SCRIPT ERROR`/`Parse error`/`ext_resource not found`를 확인한다. *(Claude: `/godot-run`)*
-- **테스트(test)** — `addons/gdUnit4` 설치 전제. GdUnit4 CLI 러너로 `test/`를 실행하고 실패 시 체계적 디버깅으로 좁힌다. *(Claude: `/godot-test`)*
+- **테스트(test)** — `addons/gdUnit4` 설치 전제. GdUnit4 CLI 러너로 `test/`를 실행하고 실패 시 체계적 디버깅으로 좁힌다. 애드온이 없으면 설치 누락으로 분류하고 멈춘다. 코드/씬 변경 검증은 별도로 `godot --headless --path . --quit-after 10` smoke test를 실행해 parse/import/runtime 시작 오류를 확인한다. *(Claude: `/godot-test`)*
 - **새 아이소 씬** — `World`(`y_sort_enabled=true`) · `GroundLayer`(비 Y-sort, `z_index=-1`) · `ObjectLayer`(`y_sort_enabled=true`, `z_index=0`) · `Camera2D` 구조로 스캐폴딩하고, 엔티티는 World 아래에 둔다(z_index 기본 0을 유지해 ObjectLayer와 같은 정렬 그룹에 포함 — Godot은 같은 z_index끼리만 Y-sort). *(Claude: `/new-iso-scene`)*
 - **아이소 디버깅(iso-debug)** — Y-sort 어긋남/클릭 좌표 불일치 등은 ① 좌표 변환이 `local_to_map(to_local(...))`인지 ② Y-sort 부모/`z_index` 분리 ③ `y_sort_origin` 순으로 점검하고, API는 context7로 확인한다. *(Claude: `/iso-debug`)*
 

@@ -17,6 +17,7 @@ GdUnit4는 Godot 엔진에 내장돼 있지 않은 **커뮤니티 애드온**이
 - 설치 방법(AssetLib 또는 git clone)과 활성화 절차는 **`docs/SETUP.md`를 참조**한다.
 - 이 템플릿 리포에는 `addons/gdUnit4`가 포함돼 있지 않다(외부 의존성). 설치 전에는
   아래 테스트가 `GdUnitTestSuite`를 찾지 못해 파싱 에러가 난다 — 정상이다.
+- 애드온 부재로 `/godot-test`가 실행되지 않으면 코드 실패로 보지 말고 “GdUnit4 미설치로 unit test 미실행”이라고 기록한다. 코드/씬 변경의 기본 smoke 검증은 `godot --headless --path . --quit-after 10`으로 별도 수행한다.
 
 ## 테스트 작성 패턴
 
