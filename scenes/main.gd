@@ -18,7 +18,7 @@ extends Node2D
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# 좌클릭 시, 클릭한 위치가 속한 ObjectLayer의 셀 좌표를 구해 출력·방송한다.
+	# 좌클릭 시, TileSet이 연결된 ObjectLayer의 셀 좌표를 구해 출력·방송한다.
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		# 전역 마우스 좌표를 ObjectLayer의 로컬 좌표로 변환한 뒤 셀 좌표로 매핑한다.
 		# (TileSet을 아이소로 설정해 연결하면 아이소 셀 좌표가 반환된다. TileSet 미할당 상태에서는 셀 좌표가 보장되지 않으니, 데모 동작 확인 전 TileSet을 할당하라.)

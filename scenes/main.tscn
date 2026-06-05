@@ -28,4 +28,4 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 408.0
 offset_bottom = 31.0
-text = "WASD/화살표: 이동  ·  좌클릭: 타일 좌표 출력"
+text = "WASD/화살표: 이동  ·  TileSet 연결 후 좌클릭: 타일 좌표 출력"
