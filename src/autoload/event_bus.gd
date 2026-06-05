@@ -13,13 +13,17 @@ extends Node
 ##   3) 전역 신호만 여기 둔다 — 특정 노드끼리만 쓰는 신호는 해당 노드에 직접 둘 것.
 
 ## 플레이어가 씬에 생성(준비)되었을 때. player는 생성된 Player 노드.
+@warning_ignore("unused_signal")
 signal player_spawned(player: Node)
 
 ## 플레이어가 사망했을 때.
+@warning_ignore("unused_signal")
 signal player_died
 
 ## 타일이 클릭되었을 때. cell은 클릭된 셀의 맵 좌표.
+@warning_ignore("unused_signal")
 signal tile_clicked(cell: Vector2i)
 
 ## 게임 일시정지 상태가 바뀌었을 때. paused가 true면 정지.
+@warning_ignore("unused_signal")
 signal game_paused(paused: bool)

@@ -270,6 +270,14 @@ GdUnit4가 없으면 테스트 스위트(`extends GdUnitTestSuite`)를 해석할
   godot --headless --path . --quit-after 10
   ```
 
+  macOS에서 이전 Godot 크래시 뒤 "복원할까요?" 모달 때문에 CLI가 멈추면 다음처럼 Apple saved-state를 무시하고 실행한다.
+
+  ```bash
+  /Applications/Godot.app/Contents/MacOS/Godot \
+    -ApplePersistenceIgnoreState YES \
+    --headless --path . --quit-after 10
+  ```
+
 - **Unit test 검증**: `addons/gdUnit4` 설치 후에만 실행한다. 애드온이 없으면 `/godot-test` 실패를 코드 실패로 보지 말고, `addons/gdUnit4` 부재로 미실행했다고 PR 검증 증거에 적는다.
 
   ```bash
@@ -286,9 +294,15 @@ GdUnit4가 없으면 테스트 스위트(`extends GdUnitTestSuite`)를 해석할
 
 ### 방법 B — git clone 후 수동 배치
 
+Godot 4.4.x 기준으로는 GdUnit4 `v4.4.3` 태그를 확인했다. 수동 배치 시 애드온 자체 테스트 fixture까지 함께 복사하면 프로젝트의 `Player` 전역 클래스와 fixture 이름이 충돌할 수 있으므로, 템플릿 검증용으로는 `addons/gdUnit4/test`를 제외한다.
+
 ```bash
 # gdUnit4는 godot-gdunit-labs 조직으로 이전됨(구 MikeSchulze/gdUnit4)
-git clone https://github.com/godot-gdunit-labs/gdUnit4
+git clone --depth 1 --branch v4.4.3 https://github.com/godot-gdunit-labs/gdUnit4 /tmp/gdUnit4
+mkdir -p addons
+cp -R /tmp/gdUnit4/addons/gdUnit4 addons/gdUnit4
+rm -rf addons/gdUnit4/test
+chmod +x addons/gdUnit4/runtest.sh
 ```
 
 클론한 저장소 안의 `addons/gdUnit4` 폴더를 본 템플릿의 `addons/gdUnit4`(즉 `res://addons/gdUnit4`)로 복사한다.
@@ -303,6 +317,25 @@ git clone https://github.com/godot-gdunit-labs/gdUnit4
 ### 동작 확인
 
 - 에디터 하단/사이드에 GdUnit4 패널이 보이면 정상.
+- CLI만으로 확인할 때는 먼저 headless editor 1회로 전역 클래스/애드온 캐시를 만든 뒤 러너를 실행한다.
+
+  ```bash
+  godot --headless --editor --path . --quit
+  addons/gdUnit4/runtest.sh -a test/unit/iso_utils_test.gd
+  ```
+
+- macOS에서 Godot CLI가 saved-state 모달로 멈추는 환경이면 `GODOT_BIN`에 래퍼 스크립트를 지정한다.
+
+  ```bash
+  printf '%s
+' \
+    '#!/bin/sh' \
+    'exec /Applications/Godot.app/Contents/MacOS/Godot -ApplePersistenceIgnoreState YES "$@"' \
+    >/tmp/godot-cli
+  chmod +x /tmp/godot-cli
+  GODOT_BIN=/tmp/godot-cli addons/gdUnit4/runtest.sh -a test/unit/iso_utils_test.gd
+  ```
+
 - 또는 Claude Code에서 `/godot-test`를 실행해 `test/unit/iso_utils_test.gd`가 통과하는지 확인한다.
 
 > 메모: 이 템플릿의 `.gitignore`(공식 4.1+ 기준)는 `addons/`도 `export_presets.cfg`도 무시하지 않는다 — GdUnit4 애드온과 익스포트 프리셋을 커밋해 함께 배포해도 된다. 무시 대상은 `.godot/` 캐시·`*.translation`·`/tools/`·`.claude/worktrees/` 등이며, 비밀정보는 `.godot/export_credentials.cfg`에 분리되어(=`.godot/` 무시로) 자동 보호된다. 반대로 애드온을 리포에서 빼고 환경마다 직접 설치하려면 각자 `.gitignore`에 `addons/gdUnit4/`를 추가한 뒤 위 절차로 설치하면 된다.

@@ -10,6 +10,8 @@ extends Node2D
 ##     (z_index가 낮으면 Y와 무관하게 항상 뒤에 그려짐 → 캐릭터가 바닥 밑으로 가라앉지 않음)
 ##   - 핵심: 함께 정렬할 노드는 z_index를 같게, 항상 뒤로 보낼 바닥만 더 낮은 z_index로 둔다.
 
+const Player := preload("res://src/entities/player/player.gd")
+
 @onready var world: Node2D = $World
 @onready var ground_layer: TileMapLayer = $World/GroundLayer
 @onready var object_layer: TileMapLayer = $World/ObjectLayer

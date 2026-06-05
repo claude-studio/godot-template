@@ -85,6 +85,7 @@ Main (Node2D)                         ← scenes/main.gd 부착
 │   ├── GroundLayer (TileMapLayer)    ← 바닥. y_sort_enabled = false, z_index = -1
 │   ├── ObjectLayer (TileMapLayer)    ← 오브젝트/장애물. y_sort_enabled = true, z_index = 0
 │   └── Player (player.tscn 인스턴스) ← CharacterBody2D (z_index 기본 0 → ObjectLayer와 같은 그룹)
+│       ├── Visual (Polygon2D)        ← 임포트 리소스가 필요 없는 기본 플레이어 표시
 │       └── Camera2D                  ← Player의 자식 → 플레이어를 따라감
 └── CanvasLayer
     └── Hint (Label)                  ← 조작 안내 UI (월드 좌표와 무관, 화면 고정)
@@ -103,6 +104,7 @@ Main (Node2D)                         ← scenes/main.gd 부착
   `y_sort_enabled = true`, `z_index = 0`으로 두어 **같은 z_index(=0)** 인 플레이어와 함께 Y-sort된다.
 - **Player (인스턴스)** — `src/entities/player/player.tscn`을 인스턴스한 것. `CharacterBody2D`로
   이동하며, `z_index` 기본값(0)이라 ObjectLayer와 같은 그룹에서 Y-sort에 참여해 오브젝트 타일과 자연스럽게 가려지거나 가린다.
+- **Visual (Polygon2D)** — 기본 플레이어 표시용 다이아몬드 폴리곤. 클린 클론 smoke 실행이 `.godot/` 임포트 캐시에 의존하지 않도록 외부 텍스처를 쓰지 않는다.
 - **Camera2D** — `World/Player`의 자식이라 플레이어를 따라간다(별도 추적 스크립트 없이 부모-자식 관계만으로).
 - **CanvasLayer → Hint (Label)** — `CanvasLayer`는 월드 변환·카메라 이동의 영향을 받지 않는
   별도 렌더 레이어다. UI는 항상 화면에 고정되어야 하므로 여기에 둔다. `Hint`의 텍스트는

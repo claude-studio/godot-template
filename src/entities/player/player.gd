@@ -9,8 +9,8 @@ extends CharacterBody2D
 ## 이동 속도(픽셀/초).
 @export var speed: float = 180.0
 
-## 플레이어 외형 스프라이트(씬의 $Sprite2D).
-@onready var sprite: Sprite2D = $Sprite2D
+## 플레이어 외형 폴리곤(씬의 $Visual).
+@onready var visual: Polygon2D = $Visual
 
 
 func _ready() -> void:
