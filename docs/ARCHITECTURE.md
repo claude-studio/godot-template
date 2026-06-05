@@ -106,10 +106,11 @@ Main (Node2D)                         ← scenes/main.gd 부착
 - **Camera2D** — `World/Player`의 자식이라 플레이어를 따라간다(별도 추적 스크립트 없이 부모-자식 관계만으로).
 - **CanvasLayer → Hint (Label)** — `CanvasLayer`는 월드 변환·카메라 이동의 영향을 받지 않는
   별도 렌더 레이어다. UI는 항상 화면에 고정되어야 하므로 여기에 둔다. `Hint`의 텍스트는
-  "WASD/화살표 이동, 좌클릭으로 타일 좌표 출력" 같은 조작 안내를 표시한다.
+  "WASD/화살표 이동, TileSet 연결 후 좌클릭으로 타일 좌표 출력" 같은 조작 안내를 표시한다.
 
-> 참고: TileMapLayer에는 처음에 `tile_set`이 비어 있다. 타일셋을 붙이는 방법은 `SETUP.md`와
-> `godot-isometric` 스킬에서 안내한다(에디터에서 TileSet의 Tile Shape를 Isometric으로 설정).
+> 참고: TileMapLayer에는 처음에 `tile_set`이 비어 있다. 이 상태에서는 좌클릭 좌표 출력이
+> 비활성화된다. 타일셋을 붙이는 방법은 `SETUP.md`와 `godot-isometric` 스킬에서 안내한다
+> (에디터에서 TileSet의 Tile Shape를 Isometric으로 설정).
 
 ---
 

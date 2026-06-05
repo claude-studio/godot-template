@@ -30,9 +30,9 @@
 
 - 이동: `WASD` 또는 화살표 키 (`move_left` / `move_right` / `move_up` / `move_down`)
 - 상호작용: `Space` 또는 `E` (`interact`)
-- 좌클릭: 클릭한 위치의 타일 셀 좌표를 출력 (`tile_clicked` 시그널)
+- 좌클릭: TileSet 연결 후 클릭한 위치의 타일 셀 좌표를 출력 (`tile_clicked` 시그널)
 
-씬에는 타일셋이 비어 있다(빈 `TileMapLayer`만 배치). 타일셋 추가 방법은 `docs/SETUP.md`와 `docs/ARCHITECTURE.md`에서 안내한다.
+씬에는 타일셋이 비어 있다(빈 `TileMapLayer`만 배치). 따라서 클린 클론 첫 실행에서는 좌클릭 좌표 출력이 비활성화되어 있으며, TileSet을 연결한 뒤 좌표 출력과 `tile_clicked` 시그널을 확인할 수 있다. 타일셋 추가 방법은 `docs/SETUP.md`와 `docs/ARCHITECTURE.md`에서 안내한다.
 
 ## 폴더 구조
 
