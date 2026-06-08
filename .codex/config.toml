@@ -1,12 +1,14 @@
 # Codex CLI 프로젝트 설정
 #
 # Codex는 리포 루트의 AGENTS.md를 작업 지침으로 자동으로 읽는다(별도 설정 불필요).
-# 이 파일은 Claude Code의 .mcp.json과 "동등한" MCP 서버 정의다.
+# 이 파일은 Claude Code의 .mcp.json과 같은 MCP 서버를 쓰되,
+# 새 클론에서 placeholder 경로로 서버 시작 실패가 나지 않도록 Godot MCP는 주석 예시로 둔다.
 #
 # 로딩 방식(버전에 따라 다를 수 있음):
 #   - 신뢰된(trusted) 리포에서는 프로젝트 config.toml 계층이 로드된다.
 #   - 동작하지 않으면 동일 내용을 ~/.codex/config.toml 에 넣는다(docs/SETUP.md 참고).
-# TOML은 환경변수를 자동 확장하지 않으므로, 아래 경로는 직접 절대경로로 수정한다.
+# TOML은 환경변수를 자동 확장하지 않으므로, Godot MCP를 쓸 때는 아래 주석 예시를
+# 실제 절대경로로 바꾼 뒤 주석을 해제한다.
 
 # --- 최신 문서 조회용 MCP (Node.js만 있으면 npx로 자동 실행 — 추가 설치 불필요) ---
 [mcp_servers.context7]
@@ -14,12 +16,15 @@ command = "npx"
 args = ["-y", "@upstash/context7-mcp"]
 
 # --- Godot 에디터 제어 MCP (Coding-Solo/godot-mcp) ---
+# 선택 기능이다. 설치 전에는 context7만으로 Godot 공식 문서 조회가 가능하고,
+# 에디터 직접 제어·프로젝트 실행·디버그 캡처만 사용할 수 없다.
 # 설치: git clone https://github.com/Coding-Solo/godot-mcp && cd godot-mcp && npm install && npm run build
-# 아래 두 경로를 환경에 맞게 수정해야 동작한다.
-[mcp_servers.godot]
-command = "node"
-args = ["/ABSOLUTE/PATH/TO/godot-mcp/build/index.js"]   # ← godot-mcp 빌드 경로로 수정
-
-[mcp_servers.godot.env]
-GODOT_PATH = "/ABSOLUTE/PATH/TO/Godot"   # ← Godot 실행파일 경로 (예: /Applications/Godot.app/Contents/MacOS/Godot). godot-mcp가 자동 탐지하면 생략 가능; 자동 탐지 실패·특정 버전 지정 시에만 설정.
-DEBUG = "false"
+#
+# 사용하려면 아래 예시를 복사/주석 해제하고 두 경로를 실제 절대경로로 바꾼다.
+# [mcp_servers.godot]
+# command = "node"
+# args = ["/Users/you/tools/godot-mcp/build/index.js"]
+#
+# [mcp_servers.godot.env]
+# GODOT_PATH = "/Applications/Godot.app/Contents/MacOS/Godot"
+# DEBUG = "false"
