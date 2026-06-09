@@ -11,10 +11,10 @@
 ## 무엇이 들어있나
 
 - 아이소 스캐폴드: 좌표 변환 헬퍼 `IsoUtils`(static 메서드), Y-sort 기반 데모 씬(`scenes/main.tscn`), 노드 기반 FSM `StateMachine`, `Player` 엔티티.
-- 멀티 에이전트 공용 구성: 도구 무관 정본 `AGENTS.md` + 공용 `docs/`. Claude Code는 `.claude/CLAUDE.md`(→ `@../AGENTS.md` import)·스킬·커맨드로, Codex는 `AGENTS.md`·`.codex/config.toml`로 **같은 지식·MCP**를 사용.
+- 멀티 에이전트 공용 구성: 도구 무관 정본 `AGENTS.md` + 공용 `docs/`. Claude Code는 `.claude/CLAUDE.md`(→ `@../AGENTS.md` import)·스킬·커맨드로, Codex는 `AGENTS.md`·`.codex/config.toml`로 같은 지식을 사용한다(context7은 기본 활성, Godot MCP는 도구별 경로 설정 후 사용).
 - 프로젝트 스코프 `.claude` 설정: 글로벌 설정 없이 `.claude/settings.json`만으로 플러그인·권한이 구성됨.
-- context7 MCP: Godot 최신 API 문서 조회용(`.mcp.json`, `npx` 자동 실행 — Node.js만 필요).
-- Godot MCP: 에디터 제어·프로젝트 구동·디버그 출력 캡처용(`.mcp.json`, Coding-Solo/godot-mcp — 별도 설치 필요).
+- context7 MCP: Godot 최신 API 문서 조회용(`.mcp.json`·`.codex/config.toml`, `npx` 자동 실행 — Node.js만 필요).
+- Godot MCP: 에디터 제어·프로젝트 구동·디버그 출력 캡처용(선택, Coding-Solo/godot-mcp — 별도 설치와 경로 설정 필요).
 - superpowers 플러그인: brainstorming · systematic-debugging · test-driven-development 등 워크플로 스킬.
 - game-development 플러그인(`wshobson/agents`, Unity/Minecraft 중심 멀티엔진 — 본 템플릿은 그중 `godot-gdscript-patterns` 스킬만 사용): GDScript 시그널·씬·FSM·최적화 패턴 제공.
 - GdUnit4 연동: 예제 테스트(`test/unit/iso_utils_test.gd`)와 테스트 실행 명령(GdUnit4 addon은 별도 설치 필요).
@@ -24,6 +24,8 @@
 1. 이 템플릿으로 새 리포를 생성하거나 클론한다.
 2. Godot 4.4 이상에서 `project.godot`를 연다. 최초 1회 열 때 `.godot/` 캐시가 생성되지만, 기본 메인 씬은 외부 텍스처 임포트 없이도 headless smoke 실행이 가능하다. `.godot/`는 커밋하지 않는다(`.gitignore`가 이미 처리).
 3. `docs/SETUP.md`를 따라 MCP(context7·Godot MCP)·플러그인·GdUnit4 addon을 설치한다.
+   - context7 MCP는 Node.js만 있으면 `npx`로 바로 동작한다.
+   - Godot MCP는 선택 기능이며, Coding-Solo/godot-mcp 빌드와 Godot 실행 파일 경로 설정 전에는 비활성/실패 상태일 수 있다.
 4. 에디터에서 `F5`로 실행한다.
 
 조작:
@@ -40,7 +42,7 @@
 |------|------|
 | `AGENTS.md` | **도구 무관 정본 지침**(Codex 등이 직접 읽음) |
 | `.claude/CLAUDE.md` | Claude Code 진입점(`@../AGENTS.md` import + Claude 전용 설정) |
-| `.codex/config.toml` | Codex CLI용 MCP 서버 설정(`.mcp.json`과 동등) |
+| `.codex/config.toml` | Codex CLI용 MCP 서버 설정(context7 기본 활성, Godot MCP는 주석 예시) |
 | `.claude/settings.json` | 프로젝트 스코프 플러그인·마켓플레이스·권한 |
 | `skills/` | **공용 스킬**(SKILL.md) — 지식 4 + 워크플로/커맨드 4(`godot-run`·`godot-test`·`new-iso-scene`·`iso-debug`). 슬래시커맨드 겸용 |
 | `.claude/skills` → `../skills` | 심볼릭 링크(Claude가 스킬을 읽는 경로) |
@@ -85,11 +87,13 @@
 
 정본 작업 지침은 `AGENTS.md`(모든 에이전트 공용)이며, Claude Code 전용 명령어·스킬·MCP 사용법은 `.claude/CLAUDE.md`, Codex 설정은 `docs/SETUP.md`의 Codex 절을 참조한다.
 
+> MCP 구분: context7은 공식 문서 조회용이라 Node.js만 있으면 바로 뜬다. Godot MCP는 에디터 조작용 선택 서버라 `GODOT_MCP_PATH`/`GODOT_PATH`(Claude) 또는 `.codex/config.toml`의 절대경로(Codex)를 맞추기 전에는 서버 시작 실패가 날 수 있으며, 이때도 context7과 일반 코드 작업은 정상이다.
+
 ## 요구사항
 
 - Godot 4.4 이상
 - Node.js (context7 MCP의 `npx` 실행용)
-- Godot MCP 사용 시: Coding-Solo/godot-mcp 빌드 후 — Claude는 `.mcp.json`의 `GODOT_MCP_PATH`/`GODOT_PATH` 환경변수로, Codex는 `.codex/config.toml`에 경로를 직접 기입
+- Godot MCP 사용 시: Coding-Solo/godot-mcp 빌드 후 — Claude는 `.mcp.json`의 `GODOT_MCP_PATH`/`GODOT_PATH` 환경변수로, Codex는 `.codex/config.toml`의 주석 예시를 실제 절대경로로 바꿔 주석 해제
 - GdUnit4 사용 시: `addons/gdUnit4` addon 설치
 
 플러그인(superpowers · commit-commands · game-development) · MCP(context7 · Godot MCP) · 기타 외부 의존성 설치는 사용자가 직접 수행해야 한다. (context7은 Claude Code 플러그인이 아니라 `.mcp.json`의 MCP 서버다 — `/plugin`이 아니라 `/mcp`에서 확인.) 자세한 설치 절차는 `docs/SETUP.md`, 구조·데이터 흐름·시그널 규약은 `docs/ARCHITECTURE.md`를 참조한다.
